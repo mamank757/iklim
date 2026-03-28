@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Monitor Iklim - PPL Digital</title>
+<style>
+:root {
+  --primary: #81c784;
+  --bg-dark: #121212;
+  --card-dark: #1e1e1e;
+  --text-main: #e0e0e0;
+  --blue: #64b5f6;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.container {
+  max-width: 900px;
+  width: 100%;
+  background: var(--card-dark);
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid #333;
+}
+
+.header-iklim {
+  background: var(--blue);
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+.content {
+  padding: 20px;
+  text-align: center;
+}
+
+.grafik-img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  border: 1px solid #444;
+}
+
+.info-box {
+  text-align: left;
+  background: #252525;
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+/* Tombol Kembali Melayang */
+.btn-home {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: var(--primary);
+  color: #121212;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  font-size: 24px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+  border: 2px solid white;
+}
+
+h2 { color: var(--blue); margin-top: 0; }
+b { color: var(--primary); }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header-iklim">
+    <h1>🌍 MONITOR IKLIM GLOBAL</h1>
+  </div>
+  
+  <div class="content">
+    <img src="https://wsrv.nl/?url=www.bom.gov.au/climate/ocean/outlooks/plots/sstOutlooks.rnino34.hr.png" alt="Grafik Nino 3.4" class="grafik-img">
+    
+    <div class="info-box">
+      <h2>💡 Panduan Analisis</h2>
+      <p>Grafik di atas menunjukkan indeks <b>Relative Niño 3.4</b> dari BOM Australia untuk memprediksi fenomena iklim:</p>
+      <ul>
+        <li>Garis melengkung ke area <b>MERAH (+0.8)</b>: Menandakan fase <b>El Niño</b> (Waspada kekeringan/panjangnya musim kemarau).</li>
+        <li>Garis melengkung ke area <b>BIRU (-0.8)</b>: Menandakan fase <b>La Niña</b> (Waspada curah hujan tinggi/banjir).</li>
+        <li>Garis di area <b>Tengah (Abu-abu)</b>: Kondisi <b>Netral</b>.</li>
+      </ul>
+      <p style="font-size: 0.8rem; color: #888;">Data diperbarui secara otomatis oleh Bureau of Meteorology Australia.</p>
+    </div>
+  </div>
+</div>
+
+<a href="https://mamank757.github.io/PPL" class="btn-home">🏠</a>
+
+</body>
+</html>
