@@ -11,6 +11,7 @@
     --card-dark: #1e1e1e; 
     --text-main: #e0e0e0; 
     --blue: #64b5f6; 
+    --orange: #fb8c00; /* Warna orange ditambahkan kembali */
     --error: #ff5252;
 }
 
@@ -23,6 +24,14 @@ body {
     flex-direction: column; 
     align-items: center; 
     padding: 20px; 
+    padding-bottom: 100px; /* Ruang agar tidak tertutup tombol home */
+}
+
+/* Efek Berkedip (Glow) */
+@keyframes glowBlink {
+    0% { border-color: #333; box-shadow: 0 0 5px rgba(0,0,0,0.2); }
+    50% { border-color: var(--primary); box-shadow: 0 0 15px rgba(129, 199, 132, 0.3); }
+    100% { border-color: #333; box-shadow: 0 0 5px rgba(0,0,0,0.2); }
 }
 
 .container { 
@@ -30,17 +39,18 @@ body {
     width: 100%; 
     background: var(--card-dark); 
     border-radius: 20px; 
-    border: 1px solid #333; 
+    border: 2px solid #333; 
     overflow: hidden; 
     margin-top: 20px; 
+    animation: glowBlink 4s infinite alternate;
 }
 
 .header-bar { 
-    background: var(--blue); 
     padding: 15px; 
     text-align: center; 
     color: white; 
     font-weight: bold; 
+    text-transform: uppercase;
 }
 
 .content { padding: 20px; text-align: center; }
@@ -54,24 +64,16 @@ body {
     background: #252525;
 }
 
-/* Tombol Akses Langsung */
 .btn-direct {
     display: inline-block;
     margin-top: 15px;
     padding: 12px 20px;
     background: transparent;
-    color: var(--blue);
-    border: 1px solid var(--blue);
     border-radius: 8px;
     text-decoration: none;
     font-size: 0.9rem;
     font-weight: bold;
     transition: 0.3s;
-}
-
-.btn-direct:hover {
-    background: var(--blue);
-    color: white;
 }
 
 .caption { 
@@ -86,8 +88,8 @@ body {
 
 .btn-home { 
     position: fixed; 
-    top: 15px; 
-    left: 15px; 
+    bottom: 20px; /* Pindah ke bawah agar tidak menutupi header di beberapa HP */
+    left: 20px; 
     background: var(--primary); 
     color: #121212; 
     width: 55px; 
@@ -107,8 +109,7 @@ body {
 <body>
 
 <div class="container">
-    <div class="header-bar">🌍 LIVE MONITOR NINO 3.4</div>
-    
+    <div class="header-bar" style="background: var(--blue);">🌍 LIVE MONITOR NINO 3.4</div>
     <div class="content">
         <img id="grafikNino" 
              src="https://wsrv.nl/?url=www.bom.gov.au/climate/ocean/outlooks/plots/sstOutlooks.rnino34.hr.png" 
@@ -117,14 +118,11 @@ body {
              onerror="handleImageError()">
 
         <a href="https://www.bom.gov.au/climate/ocean/outlooks/?index=nino34#tabs=Graphs" 
-           target="_blank" 
-           class="btn-direct">
-           🖼️ Buka Gambar Langsung (Jika Grafik Tidak Muncul)
+           target="_blank" class="btn-direct" style="color: var(--blue); border: 1px solid var(--blue);">
+           🖼️ Buka Gambar Langsung
         </a>
 
         <div class="caption">
-            <b>💡 Panduan Cepat:</b><br>
-            • Jika gambar di atas pecah atau tidak muncul, klik tombol biru di atas untuk melihat langsung dari server Australia.<br><br>
             <b>Cara Membaca:</b><br>
             • Ke arah <b>Merah (+0.8)</b>: Potensi <b>El Niño</b> (Kering).<br>
             • Ke arah <b>Biru (-0.8)</b>: Potensi <b>La Niña</b> (Basah).
@@ -132,14 +130,57 @@ body {
     </div>
 </div>
 
-<a href="https://mamank757.github.io/PPL" class="btn-home" title="Kembali ke Dashboard">🏠</a>
+<div class="container" style="animation-delay: 1.5s;">
+    <div class="header-bar" style="background: var(--orange);">🗓️ PREDIKSI HUJAN (BMKG)</div>
+    <div class="content">
+        <div style="background: #252525; padding: 10px; border-radius: 10px;">
+            <img src="https://wsrv.nl/?url=https://data.bmkg.go.id/DataMKG/IKLIM/prediksi-hujan-bulanan-terbaru.png" 
+                 alt="Data BMKG" class="grafik-img"
+                 onerror="this.src='https://via.placeholder.com/800x500?text=Gunakan+Tombol+Dibawah+Untuk+Cek+BMKG'">
+        </div>
+
+        <a href="https://www.bmkg.go.id/iklim/prakiraan-hujan-bulanan.bmkg" 
+           target="_blank" class="btn-direct" 
+           style="background: var(--orange); color: white; width: 90%;">
+           🔍 BUKA PETA PREDIKSI LENGKAP
+        </a>
+        
+        <div class="caption">
+            <b>💡 Info:</b> Jika gambar kosong, klik tombol oranye. Server BMKG sering membatasi tampilan langsung pada aplikasi pihak ketiga.
+        </div>
+    </div>
+</div>
+
+<div class="container" style="animation-delay: 0.5s;">
+    <div class="header-bar" style="background: #2e7d32;">🛰️ RADAR HUJAN REAL-TIME (SULSEL)</div>
+    <div class="content">
+        <div style="background: #1a1a1a; padding: 10px; border-radius: 12px; border: 1px solid #444;">
+            <img src="https://wsrv.nl/?url=https://data.bmkg.go.id/DataMKG/WF/Radar/MKS_Rain_Rate_Latest.png" 
+                 alt="Radar BMKG" class="grafik-img">
+        </div>
+
+        <div class="caption">
+            <b>📍 Wilayah Wajo & Sekitarnya:</b><br>
+            • <b>Hijau:</b> Hujan Ringan.<br>
+            • <b>Kuning/Oranye:</b> Hujan Lebat.<br>
+            • <b>Merah:</b> Sangat Lebat & Angin Kencang.
+        </div>
+        
+        <a href="https://www.bmkg.go.id/cuaca/citra-radar.bmkg?wilayah=Makassar" 
+           target="_blank" class="btn-direct" 
+           style="color: var(--primary); border: 1px solid var(--primary);">
+           🔍 Lihat Radar Interaktif
+        </a>
+    </div>
+</div>
+
+<a href="https://mamank757.github.io/PPL" class="btn-home">🏠</a>
 
 <script>
-// Fungsi jika gambar gagal dimuat
 function handleImageError() {
     const img = document.getElementById('grafikNino');
-    img.style.display = 'none'; // Sembunyikan gambar rusak
-    alert("Koneksi ke server gambar BOM Australia terganggu. Silakan gunakan tombol biru untuk melihat gambar secara langsung.");
+    img.style.display = 'none';
+    alert("Koneksi ke server BOM Australia terganggu.");
 }
 </script>
 
