@@ -111,12 +111,13 @@ body {
 <div class="container">
     <div class="header-bar" style="background: var(--blue);">🌍 LIVE MONITOR NINO 3.4</div>
     <div class="content">
-        <img src="https://www.bom.gov.au/climate/ocean/outlooks/archive/20260328//plumes/sstOutlooks.rnino34.hr.png" 
-         alt="R Nino 3.4" 
-         width="400" 
-         height="300"
-         title="Relative Nino 3.4"
-             onerror="handleImageError()">
+     <img id="imgNino" 
+     src="https://via.placeholder.com/400x200?text=Menunggu+ENSO"
+     alt="R Nino 3.4" 
+     width="auto" 
+     height="200"
+     title="Relative Nino 3.4"
+     onerror="handleImageError(event)">
 
         <a href="https://www.bom.gov.au/climate/ocean/outlooks/?index=nino34#tabs=Graphs" 
            target="_blank" class="btn-direct" style="color: var(--blue); border: 1px solid var(--blue);">
@@ -131,12 +132,39 @@ body {
     </div>
 </div>
 
+<div class="container" style="animation-delay: 0.5s; border-color: #ab47bc;">
+    <div class="header-bar" style="background: #ab47bc;">🌊 MONITOR IOD (INDIAN OCEAN DIPOLE)</div>
+    <div class="content">
+      <img id="imgIOD" 
+     src="https://via.placeholder.com/400x200?text=Menunggu+IOD"
+     alt="IOD Index"
+   width="auto" 
+     height="200"
+     title="IOD Index"
+     onerror="handleImageError(event)">
+
+        <a href="https://www.bom.gov.au/climate/ocean/outlooks/?index=iod#tabs=Graphs" 
+           target="_blank" 
+           class="btn-direct" 
+           style="color: #ab47bc; border: 1px solid #ab47bc;">
+           🖼️ Buka Sumber IOD
+        </a>
+
+        <div class="caption">
+            <b>Cara Membaca:</b><br>
+            • <b>IOD Positif (+)</b>: Indonesia cenderung <b>lebih kering</b><br>
+            • <b>IOD Negatif (-)</b>: Indonesia cenderung <b>lebih basah</b>
+        </div>
+    </div>
+</div>
+
 <div class="container" style="animation-delay: 1s; border-color: #ffca28;">
     <div class="header-bar" style="background: #ffca28; color: #333;">📊 PREDIKSI CURAH HUJAN (DETERMINISTIK)</div>
     <div class="content">
         
         <div style="background: #252525; padding: 10px; border-radius: 10px;">
-            <img src="https://dataweb.bmkg.go.id/iklim/prediksi-hujan-bulanan/pch_bln_det_step2.png" 
+           <img id="imgHujan" 
+     src="https://via.placeholder.com/400x200?text=Menunggu+Hujan"
             width="400" 
          height="300"
                  alt="Peta Deterministik BMKG" 
@@ -165,10 +193,37 @@ body {
 <a href="https://mamank757.github.io/PPL" class="btn-home">🏠</a>
 
 <script>
-function handleImageError() {
-    const img = document.getElementById('grafikNino');
-    img.style.display = 'none';
-    alert("Koneksi ke server BOM Australia terganggu.");
+async function ambilDataServer() {
+    const url = "https://script.google.com/macros/s/AKfycbw58DC-q7bJ9z5ZKEruLE7XOMEPNzZBfEl-_Bs6UAf5SMn43zEKz8StgkY6IqUtV-rF/exec"; // ganti punyamu
+
+    try {
+        const res = await fetch(url + "?t=" + new Date().getTime());
+        const data = await res.json();
+
+        if (data.nino) {
+            document.getElementById("imgNino").src = data.nino;
+        }
+
+        if (data.iod) {
+            document.getElementById("imgIOD").src = data.iod;
+        }
+
+        if (data.hujan) {
+            document.getElementById("imgHujan").src = data.hujan;
+        }
+
+    } catch (err) {
+        console.log("Gagal ambil data:", err);
+    }
+}
+
+// ambil pertama kali
+ambilDataServer();
+
+// refresh tiap 5 detik
+setInterval(ambilDataServer, 5000);
+    function handleImageError(event) {
+    event.target.src = "https://via.placeholder.com/400x200?text=Gagal+Load";
 }
 </script>
 
