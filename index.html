@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Monitor Iklim - Petani Digital</title>
+
 <style>
 :root { 
     --primary: #81c784; 
@@ -11,8 +12,7 @@
     --card-dark: #1e1e1e; 
     --text-main: #e0e0e0; 
     --blue: #64b5f6; 
-    --orange: #fb8c00; /* Warna orange ditambahkan kembali */
-    --error: #ff5252;
+    --orange: #fb8c00;
 }
 
 body { 
@@ -20,211 +20,275 @@ body {
     background-color: var(--bg-dark); 
     color: var(--text-main); 
     margin: 0; 
-    display: flex; 
-    flex-direction: column; 
-    align-items: center; 
     padding: 20px; 
-    padding-bottom: 100px; /* Ruang agar tidak tertutup tombol home */
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-/* Efek Berkedip (Glow) */
-@keyframes glowBlink {
-    0% { border-color: #333; box-shadow: 0 0 5px rgba(0,0,0,0.2); }
-    50% { border-color: var(--primary); box-shadow: 0 0 15px rgba(129, 199, 132, 0.3); }
-    100% { border-color: #333; box-shadow: 0 0 5px rgba(0,0,0,0.2); }
-}
-
+/* CONTAINER */
 .container { 
-    max-width: 850px; 
     width: 100%; 
     background: var(--card-dark); 
     border-radius: 20px; 
-    border: 2px solid #333; 
-    overflow: hidden; 
+    border: 1px solid #333; 
     margin-top: 20px; 
-    animation: glowBlink 4s infinite alternate;
 }
 
+/* HEADER */
 .header-bar { 
     padding: 15px; 
     text-align: center; 
-    color: white; 
     font-weight: bold; 
-    text-transform: uppercase;
+    background: var(--blue);
 }
 
-.content { padding: 20px; text-align: center; }
+/* CONTENT */
+.content { padding: 20px; }
 
-.grafik-img { 
-    width: 100%; 
-    height: auto; 
-    border-radius: 10px; 
-    border: 1px solid #444; 
-    min-height: 200px;
-    background: #252525;
+/* GRID RESPONSIVE */
+.row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap:20px;
 }
 
-.btn-direct {
-    display: inline-block;
-    margin-top: 15px;
-    padding: 12px 20px;
-    background: transparent;
-    border-radius: 8px;
-    text-decoration: none;
-    font-size: 0.9rem;
-    font-weight: bold;
-    transition: 0.3s;
-}
-
-.caption { 
-    text-align: left; 
-    background: #252525; 
-    padding: 15px; 
-    margin-top: 20px; 
-    border-radius: 10px; 
-    font-size: 0.9rem; 
-    line-height: 1.5; 
-}
-
-.btn-home { 
-    position: fixed; 
-    top: 20px; 
-    left: 20px; 
-    background: var(--primary); 
-    color: #121212; 
-    width: 55px; 
-    height: 55px; 
-    border-radius: 50%; 
-    display: flex; 
-    justify-content: center; 
-    align-items: center; 
-    text-decoration: none; 
-    font-size: 26px; 
-    box-shadow: 0 4px 15px rgba(0,0,0,0.5); 
-    border: 2px solid white; 
-    z-index: 999; 
-}
-</style>
-</head>
-<body>
-
-<div class="container">
-    <div class="header-bar" style="background: var(--blue);">🌍 LIVE MONITOR NINO 3.4</div>
-    <div class="content">
-     <img id="imgNino" 
-     src="https://via.placeholder.com/400x200?text=Menunggu+ENSO"
-     alt="R Nino 3.4" 
-     width="auto" 
-     height="200"
-     title="Relative Nino 3.4"
-     onerror="handleImageError(event)">
-
-        <a href="https://www.bom.gov.au/climate/ocean/outlooks/?index=nino34#tabs=Graphs" 
-           target="_blank" class="btn-direct" style="color: var(--blue); border: 1px solid var(--blue);">
-           🖼️ Buka Sumber Gambar Langsung
-        </a>
-
-        <div class="caption">
-            <b>Cara Membaca:</b><br>
-            • Ke arah <b>Merah (+0.8)</b>: Potensi <b>El Niño</b> (Kering).<br>
-            • Ke arah <b>Biru (-0.8)</b>: Potensi <b>La Niña</b> (Basah).
-        </div>
-    </div>
-</div>
-
-<div class="container" style="animation-delay: 0.5s; border-color: #ab47bc;">
-    <div class="header-bar" style="background: #ab47bc;">🌊 MONITOR IOD (INDIAN OCEAN DIPOLE)</div>
-    <div class="content">
-      <img id="imgIOD" 
-     src="https://via.placeholder.com/400x200?text=Menunggu+IOD"
-     alt="IOD Index"
-   width="auto" 
-     height="200"
-     title="IOD Index"
-     onerror="handleImageError(event)">
-
-        <a href="https://www.bom.gov.au/climate/ocean/outlooks/?index=iod#tabs=Graphs" 
-           target="_blank" 
-           class="btn-direct" 
-           style="color: #ab47bc; border: 1px solid #ab47bc;">
-           🖼️ Buka Sumber IOD
-        </a>
-
-        <div class="caption">
-            <b>Cara Membaca:</b><br>
-            • <b>IOD Positif (+)</b>: Indonesia cenderung <b>lebih kering</b><br>
-            • <b>IOD Negatif (-)</b>: Indonesia cenderung <b>lebih basah</b>
-        </div>
-    </div>
-</div>
-
-<div class="container" style="animation-delay: 1s; border-color: #ffca28;">
-    <div class="header-bar" style="background: #ffca28; color: #333;">📊 PREDIKSI CURAH HUJAN (DETERMINISTIK)</div>
-    <div class="content">
-        
-        <div style="background: #252525; padding: 10px; border-radius: 10px;">
-           <img id="imgHujan" 
-     src="https://via.placeholder.com/400x200?text=Menunggu+Hujan"
-            width="400" 
-         height="300"
-                 alt="Peta Deterministik BMKG" 
-                 class="grafik-img"
-                 onerror="this.src='https://via.placeholder.com/800x500?text=Data+Sedang+Update+di+BMKG'">
-                 
-        </div>
-
-
-
-        <a href="https://www.bmkg.go.id/iklim/prediksi-hujan-bulanan/curah-hujan-deterministik" 
-           target="_blank" 
-           class="btn-direct" 
-           style="background: #ffca28; color: #333; width: 90%; border: none;">
-            📂 Buka Langsung Deterministik BMKG
-        </a>
-                <div class="caption">
-            <b> Petunjuk:</b><br>
-            • Peta ini menunjukkan jumlah curah hujan (mm/bulan) yang diprediksi terjadi.<br>
-            • Perhatikan gradasi warna pada peta untuk melihat intensitas hujan di wilayah kita.<br>
-            • Data ini diambil langsung dari server <i>Deterministik BMKG</i>.
-        </div>
-    </div>
-</div>
-
-<a href="https://mamank757.github.io/PPL" class="btn-home">🏠</a>
-
-<script>
-async function ambilDataServer() {
-    const url = "https://script.google.com/macros/s/AKfycbw58DC-q7bJ9z5ZKEruLE7XOMEPNzZBfEl-_Bs6UAf5SMn43zEKz8StgkY6IqUtV-rF/exec"; // ganti punyamu
-
-    try {
-        const res = await fetch(url + "?t=" + new Date().getTime());
-        const data = await res.json();
-
-        if (data.nino) {
-            document.getElementById("imgNino").src = data.nino;
-        }
-
-        if (data.iod) {
-            document.getElementById("imgIOD").src = data.iod;
-        }
-
-        if (data.hujan) {
-            document.getElementById("imgHujan").src = data.hujan;
-        }
-
-    } catch (err) {
-        console.log("Gagal ambil data:", err);
+@media (min-width: 768px) {
+    .row {
+        grid-template-columns: 1fr 1fr;
     }
 }
 
-// ambil pertama kali
-ambilDataServer();
+@media (min-width: 1200px) {
+    .row {
+        grid-template-columns: 1fr 1fr;
+        gap:30px;
+    }
 
-// refresh tiap 5 detik
-setInterval(ambilDataServer, 5000);
-    function handleImageError(event) {
-    event.target.src = "https://via.placeholder.com/400x200?text=Gagal+Load";
+    .content {
+        padding:30px;
+    }
 }
+
+/* CARD */
+.card {
+    background:#252525;
+    padding:20px;
+    border-radius:12px;
+    border:1px solid #333;
+}
+
+/* NOAA */
+.noaa {
+    border:1px solid var(--orange);
+    box-shadow: 0 0 15px rgba(251,140,0,0.2);
+}
+
+/* IMAGE */
+.grafik-img { 
+    width: 100%; 
+    border-radius: 10px; 
+    border: 1px solid #444; 
+}
+
+/* BUTTON */
+.btn {
+    display:block;
+    margin-top:10px;
+    padding:10px;
+    text-align:center;
+    border-radius:8px;
+    text-decoration:none;
+    border:1px solid var(--blue);
+    color:var(--blue);
+}
+
+/* TEXT */
+.caption {
+    margin-top:10px;
+    font-size:13px;
+    color:#ccc;
+}
+
+/* NOAA STYLE */
+.big {
+    font-size:40px;
+    font-weight:bold;
+}
+
+.status {
+    font-size:20px;
+    margin-top:5px;
+}
+
+.impact {
+    margin-top:10px;
+    font-size:16px;
+}
+
+.meta {
+    margin-top:10px;
+    font-size:12px;
+    color:#aaa;
+}
+</style>
+</head>
+
+<body>
+
+<!-- ================= ENSO ================= -->
+<div class="container">
+    <div class="header-bar">🌍 MONITOR ENSO (NINO 3.4)</div>
+
+    <div class="content">
+        <div class="row">
+
+            <!-- BOM -->
+            <div class="card">
+                <b style="color:#64b5f6;">🌐 BoM (Visual)</b>
+
+                <img id="imgNino"
+                src="https://via.placeholder.com/400x200?text=Menunggu+ENSO"
+                class="grafik-img">
+
+                <a href="https://www.bom.gov.au/climate/ocean/outlooks/?index=nino34#tabs=Graphs"
+                target="_blank" class="btn">
+                Buka BoM
+                </a>
+
+                <div class="caption">
+                    Merah = El Niño (kering)<br>
+                    Biru = La Niña (basah)
+                </div>
+            </div>
+
+            <!-- NOAA -->
+            <div class="card noaa">
+                <b style="color:#fb8c00;">📡 NUMERIK (NOAA)</b>
+
+                <div id="ensoDisplay" style="margin-top:10px;">
+                    Memuat data ENSO...
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- ================= IOD ================= -->
+<div class="container">
+    <div class="header-bar" style="background:#ab47bc;">🌊 MONITOR IOD</div>
+
+    <div class="content">
+        <img id="imgIOD"
+        src="https://via.placeholder.com/400x200?text=Menunggu+IOD"
+        class="grafik-img">
+    </div>
+</div>
+
+<!-- ================= HUJAN ================= -->
+<div class="container">
+    <div class="header-bar" style="background:#ffca28; color:#333;">
+        🌧️ PREDIKSI HUJAN
+    </div>
+
+    <div class="content">
+        <img id="imgHujan"
+        src="https://via.placeholder.com/400x200?text=Menunggu+Hujan"
+        class="grafik-img">
+    </div>
+</div>
+
+<script>
+
+// STATUS
+function statusENSO(v){
+    if (v >= 0.8) return "El Niño 🔥 (Kering)";
+    if (v <= -0.8) return "La Niña 🌧️ (Basah)";
+    return "Netral 🌤️";
+}
+
+function dampakPetani(v){
+    if (v >= 1.0) return "⚠️ Risiko kekeringan tinggi";
+    if (v >= 0.5) return "⚠️ Mulai lebih kering";
+    if (v <= -1.0) return "🌧️ Risiko hujan berlebih";
+    if (v <= -0.5) return "🌧️ Lebih basah dari normal";
+    return "🌤️ Kondisi normal";
+}
+
+// NOAA
+async function ambilNino(){
+    const url = "https://script.google.com/macros/s/AKfycbw7QByp3LaeBqQF6Xa2cztMzbt8BGrAsR_E_2MBPwBthj9kF-Xr0KGDPvVxTnzsJzFw7g/exec";
+
+    try {
+        const res = await fetch(url + "?t=" + Date.now());
+        const data = await res.json();
+
+        let v = parseFloat(data.enso);
+        if (isNaN(v)) v = 0;
+
+        const status = statusENSO(v);
+        const dampak = dampakPetani(v);
+        const sumber = data.source || "NOAA";
+
+        let warna = "#64b5f6";
+        if (v >= 0.8) warna = "#fb8c00";
+        if (v <= -0.8) warna = "#42a5f5";
+
+        document.getElementById("ensoDisplay").innerHTML = `
+            <div class="big" style="color:${warna}">
+                ${v.toFixed(2)} °C
+            </div>
+
+            <div class="status">
+                ${status}
+            </div>
+
+            <div class="impact">
+                ${dampak}
+            </div>
+
+            <div class="meta">
+                Sumber: ${sumber} • ${new Date().toLocaleString('id-ID')}
+            </div>
+
+            <div class="meta" style="color:#888;">
+                Data real-time dari NOAA
+            </div>
+        `;
+
+    } catch {
+        document.getElementById("ensoDisplay").innerHTML = `
+            <div class="big">0.00 °C</div>
+            <div class="status">Netral 🌤️</div>
+            <div class="impact">🌤️ Kondisi normal</div>
+            <div class="meta">Sumber: FALLBACK • ${new Date().toLocaleString('id-ID')}</div>
+            <div class="meta">Data real-time dari NOAA</div>
+        `;
+    }
+}
+
+// IMAGE
+async function ambilImg(){
+    const url = "https://script.google.com/macros/s/AKfycbw58DC-q7bJ9z5ZKEruLE7XOMEPNzZBfEl-_Bs6UAf5SMn43zEKz8StgkY6IqUtV-rF/exec";
+
+    try {
+        const res = await fetch(url + "?t=" + Date.now());
+        const data = await res.json();
+
+        if (data.nino) imgNino.src = data.nino;
+        if (data.iod) imgIOD.src = data.iod;
+        if (data.hujan) imgHujan.src = data.hujan;
+    } catch {}
+}
+
+// RUN
+ambilNino();
+ambilImg();
+
+setInterval(ambilNino, 3600000);
+setInterval(ambilImg, 10000);
+
 </script>
 
 </body>
